@@ -9,15 +9,15 @@ const refs = {
     input: document.querySelector('input'),
 }
 
-//refs.textarea.addEventListener('input', throttle(onTextAreaInput, 1000));
+refs.form.addEventListener('input', throttle(addEvent, 1000));
 refs.form.addEventListener('submit', onFormSubmit);
 
-refs.form.addEventListener('input', e => {
-    formData [e.target.name] = e.target.value;
-    localStorage.setItem(KEY_FORM, JSON.stringify(formData));
-})
-
 populateTextArea();
+
+function addEvent(evt) {
+    formData [evt.target.name] = evt.target.value;
+    localStorage.setItem(KEY_FORM, JSON.stringify(formData));
+}
 
  function onTextAreaInput(evt) {
     const textArea = evt.currentTarget.value;
