@@ -12,21 +12,18 @@ const refs = {
 refs.form.addEventListener('input', throttle(addLocalStorage, 500));
 refs.form.addEventListener('submit', onFormSubmit);
 
-populateTextArea();
-
 function addLocalStorage(evt) {
-    formData [evt.target.name] = evt.target.value;
-    localStorage.setItem(KEY_FORM, JSON.stringify(formData));
+    const data = {
+        email: refs.input.value,
+        message: refs.textarea.value,
+      };
+    localStorage.setItem(KEY_FORM, JSON.stringify(data));
 }
-
- function onTextAreaInput(evt) {
-    const textArea = evt.currentTarget.value;
-    localStorage.setItem(KEY_FORM, textArea)
-} 
 
 function onFormSubmit(evt) {
     evt.preventDefault();
-    console.log('form submission');
+    const sendMessage = JSON.parse(localStorage.getItem(KEY_FORM));
+    console.log('form submission:', sendMessage);
     evt.currentTarget.reset();
     localStorage.removeItem(KEY_FORM);
 }
